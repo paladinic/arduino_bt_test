@@ -4,30 +4,25 @@ let characteristic;
 
 const connectButton = document.getElementById('connect');
 const toggleLedButton = document.getElementById('toggleLed');
-
 async function connectBluetooth() {
-  try {
-    console.log('Requesting Bluetooth Device...');
-    bluetoothDevice = await navigator.bluetooth.requestDevice({
-      filters: [{ namePrefix: 'HC' }], // Adjust to your Bluetooth module's name prefix
-      optionalServices: ['0000ffe0-0000-1000-8000-00805f9b34fb']
-    });
-
-    console.log('Connecting to GATT Server...');
-    server = await bluetoothDevice.gatt.connect();
-
-    console.log('Getting Primary Service...');
-    const service = await server.getPrimaryService('0000ffe0-0000-1000-8000-00805f9b34fb');
-
-    console.log('Getting Characteristic...');
-    characteristic = await service.getCharacteristic('0000ffe1-0000-1000-8000-00805f9b34fb');
-
-    console.log('Bluetooth connected!');
-  } catch (error) {
-    console.error('Bluetooth connection failed!', error);
+    try {
+      console.log('Requesting Bluetooth Device...');
+      bluetoothDevice = await navigator.bluetooth.requestDevice({
+        acceptAllDevices: true, // Will show all devices
+        optionalServices: ['0000ffe0-0000-1000-8000-00805f9b34fb']
+      });
+  
+      console.log(`Selected device: ${bluetoothDevice.name}`);
+      server = await bluetoothDevice.gatt.connect();
+      const service = await server.getPrimaryService('0000ffe0-0000-1000-8000-00805f9b34fb');
+      characteristic = await service.getCharacteristic('0000ffe1-0000-1000-8000-00805f9b34fb');
+  
+      console.log('Bluetooth connected!');
+    } catch (error) {
+      console.error('Bluetooth connection failed!', error);
+    }
   }
-}
-
+  
 async function toggleLed() {
   if (characteristic) {
     try {

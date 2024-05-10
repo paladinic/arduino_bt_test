@@ -7,13 +7,20 @@ const toggleLedButton = document.getElementById('toggleLed');
 
 async function connectBluetooth() {
   try {
+    console.log('Requesting Bluetooth Device...');
     bluetoothDevice = await navigator.bluetooth.requestDevice({
-      filters: [{ namePrefix: 'HC-05' }], // Adjust to your Bluetooth device's name
-      optionalServices: ['00001101-0000-1000-8000-00805f9b34fb']
+      filters: [{ namePrefix: 'HC' }], // Adjust to your Bluetooth module's name prefix
+      optionalServices: ['0000ffe0-0000-1000-8000-00805f9b34fb']
     });
+
+    console.log('Connecting to GATT Server...');
     server = await bluetoothDevice.gatt.connect();
-    const service = await server.getPrimaryService('00001101-0000-1000-8000-00805f9b34fb');
-    characteristic = await service.getCharacteristic('00001101-0000-1000-8000-00805f9b34fb');
+
+    console.log('Getting Primary Service...');
+    const service = await server.getPrimaryService('0000ffe0-0000-1000-8000-00805f9b34fb');
+
+    console.log('Getting Characteristic...');
+    characteristic = await service.getCharacteristic('0000ffe1-0000-1000-8000-00805f9b34fb');
 
     console.log('Bluetooth connected!');
   } catch (error) {

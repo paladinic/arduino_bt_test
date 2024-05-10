@@ -1,0 +1,21 @@
+{
+    "name": "Arduino Bluetooth Controller",
+    "short_name": "ArduinoBT",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "description": "Control Arduino via Bluetooth from a PWA",
+    "icons": [
+      {
+        "src": "icon-192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "icon-512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  

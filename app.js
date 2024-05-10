@@ -17,9 +17,9 @@ async function connectBluetooth() {
       const service = await server.getPrimaryService('0000ffe0-0000-1000-8000-00805f9b34fb');
       characteristic = await service.getCharacteristic('0000ffe1-0000-1000-8000-00805f9b34fb');
   
-      console.log('Bluetooth connected!');
+      alert('Bluetooth connected!');
     } catch (error) {
-      console.error('Bluetooth connection failed!', error);
+        alert('Bluetooth connection failed!', error);
     }
   }
   
@@ -34,7 +34,7 @@ async function toggleLed() {
       console.error('Error toggling LED:', error);
     }
   } else {
-    console.warn('No Bluetooth device connected!');
+    alert('No Bluetooth device connected!');
   }
 }
 
